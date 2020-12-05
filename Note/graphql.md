@@ -97,12 +97,20 @@ const resolvers = {
 
 **PLAYGROUND QUERY AND MUTATION EXAMPLE**
 ```javascript
+// example of query request
 query {
-    movies {
-        title
-        year
-    }
+  movie(id: 24504) {
+    title
+    rating
+    description_intro
+  }
+  suggestions(id: 24504) {
+		midium_cover_image
+    rating
+  }
 }
+
+// example of mutation request
 mutation {
   addMovie(
     // string은 따옴표로 감싸주어야함

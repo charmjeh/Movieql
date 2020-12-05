@@ -6,8 +6,11 @@ type Movie {
     summary: String
     language: String
     midium_cover_image: String
+    description_intro: String
 }
 
 type Query {
     movies(limit: Int, rating: Float): [Movie]!
+    movie(id: Int!): Movie!
+    suggestions(id: Int!): [Movie]!
 }
