@@ -6,6 +6,8 @@
 
 `schema`: 사용자에게 보내거나 받을 데이터에 대한 설명
 
+`mutatino`: Database 상태가 변할때 사용된다.
+
 `playground`: database test용, `postman`과 같은것으로, api문서와 같이 schema를 자동으로 생성하여 보여준다.
 
 ```javascript
@@ -67,13 +69,22 @@ type Query {
     people: [Person]!
     person(id: Int!): Person // id로 person을 찾을 수 있다.
 }
+
+type Mutation {
+    addPerson(
+        // id는 database에서 자동생성되므로 없어도 됌
+        name: String!
+        age: Int!
+        gender: String!
+    ): Person!
+}
 ```
 
 GraphQL Resolvers는 GraphQL 서버에서 요청을 받는다. GraphQL 서버가 Query나 Mutation의 정의를 발견하면, Resolver를 찾아 해당 함수를 실행한다. 여기에서 argument를 제공한다.
 
 ```javascript
-// 첫번쨰 인자: 현재 Object를 보내는 object, 
-// 두번쨰 인자 : arguments를 줌.
+// 첫번째 인자: 현재 Object를 보내는 object, 
+// 두번째 인자 : arguments를 줌.
 const resolvers = {
     Query: {
         people: () => people,
@@ -81,6 +92,27 @@ const resolvers = {
             id
         }) => getById(id)
     }
+}
+```
+
+**PLAYGROUND QUERY AND MUTATION EXAMPLE**
+```javascript
+query {
+    movies {
+        title
+        year
+    }
+}
+mutation {
+  addMovie(
+    // string은 따옴표로 감싸주어야함
+    title: "The Imitation Game",
+    year: 2014,
+    rating: 8,
+    synopsis:
+    "During World War II, the English mathematical genius Alan Turing tries to crack the German Enigma code with help from fellow mathematicians.",
+    genres: ["drama", "thriller", "war"]
+  ) { title, year, rating, synopsis, genres } // return value
 }
 ```
 
