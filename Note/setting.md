@@ -27,3 +27,8 @@ https://yts.am/api/v2/list_movies.json
 ```
 
 * `JSONView` : 브라우저에서 JSON이 예쁘게 보이게하는 확장프로그램
+
+### NODE-FETCH
+```
+$ yarn add node-fetch // Node.js 에서 fetch를 할 때 필요
+```
